@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "422955200281",
+    "project_id": "popup-notification-74ab0",
+    "storage_bucket": "popup-notification-74ab0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422955200281:android:845d20687b8095ede59f88",
+        "android_client_info": {
+          "package_name": "com.example.popup_notification"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422955200281-lian2irvfqt3nb46ge0mjcorncl7stgn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAV3LQaZC0tATXgcAvVokph09deodi5Tcg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "422955200281-lian2irvfqt3nb46ge0mjcorncl7stgn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
