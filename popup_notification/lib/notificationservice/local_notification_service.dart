@@ -1,58 +1,55 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-/*class LocalNotificationService {
-  static final FlutterLocalNotificationsPlugin _notificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+class LocalNotificationService {
+  LocalNotificationService();
 
-  static void initialize() {
-    // initializationSettings  for Android
-    const InitializationSettings initializationSettings =
-        InitializationSettings(
-      android: AndroidInitializationSettings("@mipmap/ic_launcher"),
+  final _localNotificationService = FlutterLocalNotificationsPlugin();
+
+  Future<void> initialize() async {
+    const AndroidInitializationSettings androidInitializationSettings =
+        AndroidInitializationSettings('app_icon');
+
+    IOSInitializationSettings iosInitializationSettings =
+        const IOSInitializationSettings(
+      requestAlertPermission: true,
+      requestBadgePermission: true,
+      requestSoundPermission: true,
+      onDidReceiveLocalNotification: onDidReceiveLocalNotification,
     );
 
-    _notificationsPlugin.initialize(
-      initializationSettings,
-      onSelectNotification: (String? id) async {
-        print("onSelectNotification");
-        if (id!.isNotEmpty) {
-          print("Router Value1234 $id");
-
-          // Navigator.of(context).push(
-          //   MaterialPageRoute(
-          //     builder: (context) => DemoScreen(
-          //       id: id,
-          //     ),
-          //   ),
-          // );
-
-        }
-      },
-    );
+    InitializationSettings settings = InitializationSettings(
+        android: androidInitializationSettings, iOS: iosInitializationSettings);
+    await _localNotificationService.initialize(settings,
+        onSelectNotification: onSelectNotification);
   }
 
-  static void createanddisplaynotification(RemoteMessage message) async {
-    try {
-      final id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
-      const NotificationDetails notificationDetails = NotificationDetails(
-        android: AndroidNotificationDetails(
-          "popuppushnotification",
-          "pushnotificationappchannel",
-          importance: Importance.max,
-          priority: Priority.high,
-        ),
-      );
+  Future<NotificationDetails> _notificationDetails() async {
+    AndroidNotificationDetails androidNotificationDetails =
+        const AndroidNotificationDetails('channelId', 'channelName',
+            priority: Priority.high, importance: Importance.max);
 
-      await _notificationsPlugin.show(
-        id,
-        message.notification!.title,
-        message.notification!.body,
-        notificationDetails,
-        payload: message.data['_id'],
-      );
-    } on Exception catch (e) {
-      print(e);
-    }
+    IOSNotificationDetails iosNotificationDetails =
+        const IOSNotificationDetails();
+
+    return NotificationDetails(
+        android: androidNotificationDetails, iOS: iosNotificationDetails);
   }
-}*/
+
+  //normal notification
+
+  Future<void> showNotification(
+    int id,
+    String title,
+    String body,
+  ) async {
+    final details = await _notificationDetails();
+    await _localNotificationService.show(id, title, body, details);
+  }
+}
+
+void onDidReceiveLocalNotification(
+    int id, String? title, String? body, String? payload) {}
+
+void onSelectNotification(String? payload) {
+  print('local notification');
+}
