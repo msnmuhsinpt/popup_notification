@@ -25,14 +25,19 @@ class LocalNotificationService {
 
   Future<NotificationDetails> _notificationDetails() async {
     AndroidNotificationDetails androidNotificationDetails =
-        const AndroidNotificationDetails('channelId', 'channelName',
-            priority: Priority.high, importance: Importance.max);
+        const AndroidNotificationDetails(
+            'popuppushnotification', 'popuppushnotification',
+            channelDescription: 'popuppushnotification',
+            priority: Priority.high,
+            importance: Importance.max,
+        );
 
     IOSNotificationDetails iosNotificationDetails =
         const IOSNotificationDetails();
 
     return NotificationDetails(
-        android: androidNotificationDetails, iOS: iosNotificationDetails);
+        android: androidNotificationDetails, iOS: iosNotificationDetails,
+    );
   }
 
   //normal notification
